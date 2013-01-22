@@ -47,6 +47,7 @@
         
         <DIV id="mtime" title="Time format: 23:59 | 7:59 ">Time:</DIV>
         <input type="time" id="time" name="time" placeholder="23:59" value="" step="10"
+        pattern="[0-9]{2}:(0[1-9]|1[012]):(0[1-9]|1[0-9]|2[0-9]|3[01]{8,8}"
         required>
         
         <DIV id="mtz" title="Time Zone to GMT +|-&#013;East of GMT: +, and for West of GMT: -&#013;(decimal)"
@@ -262,7 +263,7 @@
     
     function parse_date (input) 
     {
-        /* Date format: 1901-02-31 */
+        /* Date format: 1901-02-31 | 1901/2/31*/
         date  = 0;
         date  = new Date(input);
     }
@@ -651,17 +652,17 @@
         if      (n == 1)  return nakshatra;
         else if (n == 2)  return lord;
         else if (n == 3)  {
-            if (pada >= 0.000000 && pada <=3.333334)
-            return 1;
-            if (pada > 3.333334  && pada <=6.666667)
-            return 2;
-            if (pada > 6.666667  && pada <=9.999999)
-            return 3;
-            if (pada > 9.999999  && pada <=13.400000)
-            return 4;
+             if (pada >= 0.000000 && pada <=3.333334)
+             return 1;
+             if (pada > 3.333334  && pada <=6.666667)
+             return 2;
+             if (pada > 6.666667  && pada <=9.999999)
+             return 3;
+             if (pada > 9.999999  && pada <=13.400000)
+             return 4;
         }
         else if (n == 4)  {
-            return sdeg;
+             return sdeg;
         }
     }
     
@@ -1441,11 +1442,11 @@
     
     function dT (transit)
     {
-        /*  http://eclipse.gsfc.nasa.gov/SEhelp/deltaT.html
+        /*   http://eclipse.gsfc.nasa.gov/SEhelp/deltaT.html
          *  
-         *  Terrestrial Dynamical Time (TD), Universal Time (UT) 
-         *  The parameter delta-T (ΔT) is the arithmetic difference,
-         *  in seconds, between the two as: ΔT = TD - UT 
+         *   Terrestrial Dynamical Time (TD), Universal Time (UT) 
+         *   The parameter delta-T (ΔT) is the arithmetic difference,
+         *   in seconds, between the two as: ΔT = TD - UT 
          */
         
         var today=new Date(),y;
@@ -1955,10 +1956,10 @@
         var synodicday  = 24 * 360/sideralyear;
         var ratio       = 1/100273790935;
         
-        var ay    = aynow    = calc_ayanamsa(false);
-        var moon  = moonnow  = mod360(calc_moon_positionIII(false) - ay);
-        var sdeg  = sdegnow  = calc_nakshatra(mygrahas[2].getra(),4);
-        var nlord = nlordnow = calc_nakshatra(mygrahas[2].getra(),2);
+        var ay    = calc_ayanamsa(false);
+        var moon  = mod360(calc_moon_positionIII(false) - ay);
+        var sdeg  = calc_nakshatra(mygrahas[2].getra(),4);
+        var nlord = calc_nakshatra(mygrahas[2].getra(),2);
         
         var index  = lord.indexOf(nlord);
         var period = tdasa[lord.indexOf(nlord)];
